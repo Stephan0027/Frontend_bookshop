@@ -4,6 +4,9 @@
 @import 'sticky-footer';
 
 
+nav {
+  font-family: 'Arial';
+}
 
 .body {
   font-family: 'Times new roman';
@@ -94,39 +97,6 @@ table {
   border-color: $primary;
 }
 
-.productFrame2:hover {
-  border-style: solid;
-  border-width: 2px;
-  border-color: $primary;
-
-}
-
-.productFrame2 {
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
-  height: 100%;
-  width: 100%;
-  aspect-ratio: 0.75;
-  padding: 5px;
-
-  //display: flex;
-  justify-content: space-between;
-  align-items: center;
-  //flex-direction: column;
-
-  @include make-col-ready();
-
-  @include media-breakpoint-up(md) {
-    @include make-col(6);
-  }
-
-  @include media-breakpoint-up(lg) {
-    @include make-col(4);
-  }
-
-  @include media-breakpoint-up(xl) {
-    @include make-col(3);
-  }
-
+.navbar-brand {
+  cursor: pointer;
 }

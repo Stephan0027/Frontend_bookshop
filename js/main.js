@@ -336,11 +336,43 @@ function updateCart(bookRecord, quantity) {
 //SHOW BOOKS
 //________________________________________________________________________________________________________________________________
 
-function showBook(row) {
-  let book = books[row];
-  let html = `<p>boek</p>`
+function showBook(bookId) {
+  let book = getBookInfo(bookId);
+
+  let html = `
+  <p style="text-align:right"><button type="button" class="btn btn-secondary text-white" id="backButton"> Back</button></p>
+  <div class="card mb-3" style="padding:0px">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="/book_id${bookId}.jpg" class="card-img" style="padding:5px"  alt="${book.title}">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title">${book.title}</h3>
+        <h5 class="card-text">${book.author}</h5>
+        <br>
+        <p class="card-text" style="text-align:left">${book.description}</p>
+      </div>
+    </div>
+    <div class="card-footer">${book.price}SEK
+    <button type="button" class="btn btn-secondary text-white" id="addCart"> Add to Cart</button>
+    </div>
+  </div>       
+</div>`
 
   document.getElementById("bookview").innerHTML = html;
+
+  //add button event
+  document.getElementById("addCart").addEventListener('click', event => {
+    updateCart(bookId, "add");
+    updateCollapseCart();
+  });
+
+  //return to main button event
+  document.getElementById("backButton").addEventListener('click', event => {
+    showBooks();
+  });
+
 }
 
 //shows books on main page
@@ -360,13 +392,13 @@ function showBooks() {
       html += `
         <div class="productFrame" id="info${bookId}">
           <div class="card">
-            <img src="/book_img.jpg" class="card-img-top" alt="...">
+            <img src="/book_id${bookId}.jpg" class="card-img-top" alt="${book.title}">
             <div class="card-body">
               <h5 class="card-title">${maxStringSize(book.title, 45)}</h5>
-              <p>${book.author}</p>
+              <p>${author}</p>
             </div>
             <div class="card-footer">
-              ${book.price}SEK
+              ${price}SEK
               <button type="button" class="btn btn-secondary text-white" id="book${bookId}"> Add to
                 Cart</button>
             </div>
@@ -392,6 +424,7 @@ function showBooks() {
       if (event.target.nodeName != "BUTTON") {
         console.log("info", itemNr);
         console.log(getBookInfo(itemNr));
+        showBook(itemNr);
       }
 
     });
@@ -446,6 +479,10 @@ document.getElementById("dropdownAuthor").addEventListener('hide.bs.dropdown', e
 });
 
 document.getElementById("dropdownCategory").addEventListener('hide.bs.dropdown', event => {
+  showBooks();
+});
+
+document.getElementById("pageHeader").addEventListener('click', event => {
   showBooks();
 });
 
