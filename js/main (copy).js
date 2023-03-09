@@ -12,18 +12,8 @@ import * as bootstrap from 'bootstrap';
 let books;
 let categories;
 let authors;
-let sortChoice = "price-ascending";
-let priceChoice = "any price";
+let sortChoice = "Sort (Price-ascending)";
 let shoppingCart = {};
-
-let sortOptions = ["price-ascending", "price-descending", "title-ascending", "title-descending", "author-ascending", "author-descending"];
-let priceOptions = {
-  "any price": [0, 10000],
-  "under 200SEK": [0, 200],
-  "200 to 500SEK": [200, 500],
-  "500 to 1000SEK": [500, 1000],
-  "over 1000SEK": [1000, 100000]
-}
 
 //NAVBAR
 //________________________________________________________________________________________________________________________________
@@ -37,47 +27,26 @@ function sortList(list) {
   } else {
     list.sort(({ [array[0]]: a }, { [array[0]]: b }) => a > b ? 1 : -1);
   }
+
 }
-
-
-//show oprice filter options in navBar
-function showPriceNavbar() {
-  //add options to dropdown
-  let html = "";
-  for (let option in priceOptions) {
-    let val = option;
-    html += `<li><a class="dropdown-item" id="${val}">${val}</a></li>`;
-  }
-
-  document.getElementById("navPrice").innerHTML = html;
-
-  //add events to options
-  for (let option in priceOptions) {
-    let val = option;
-    document.getElementById(val).addEventListener('click', event => {
-      priceChoice = val;
-      document.getElementById("priceChoice").innerHTML = val;
-      showPriceNavbar();
-      showBooks();
-    })
-  }
-}
-
 
 //show sort option in navbar
 function showSortNavbar() {
+
+  let navOptions = ["price-ascending", "price-descending", "title-ascending", "title-descending", "author-ascending", "author-descending"];
+
   //add options to dropdown
   let html = "";
-  for (let option in sortOptions) {
-    let val = sortOptions[option];
+  for (let option in navOptions) {
+    let val = navOptions[option];
     html += `<li><a class="dropdown-item" id="${val}">${val}</a></li>`;
   }
 
   document.getElementById("navSort").innerHTML = html;
 
   //add events to options
-  for (let option in sortOptions) {
-    let val = sortOptions[option];
+  for (let option in navOptions) {
+    let val = navOptions[option];
     document.getElementById(val).addEventListener('click', event => {
       sortChoice = val;
       document.getElementById("sortChoice").innerHTML = `Sort (${val})`;
@@ -271,17 +240,16 @@ function updateCollapseCart() {
   </tr>
   `
 
-  for (let bookId in shoppingCart) {
-    let book = getBookInfo(bookId);
-    title = book["title"];
-    quantity = shoppingCart[bookId];
-    price = book["price"] * quantity;
+  for (let row in shoppingCart) {
+    title = books[row]["title"];
+    quantity = shoppingCart[row];
+    price = books[row]["price"] * quantity;
 
     totalItems += quantity;
     totalPrice += price;
     html += `<tr>
     <td>${maxStringSize(title, 30)}</td> 
-    <td style="text-align:center"><input type="number" value=${quantity} min =0 id="q${bookId}" style="width:60px"></td>
+    <td style="text-align:center"><input type="number" value=${quantity} min =0 id="q${row}" style="width:60px"></td>
     <td style="text-align:center">${price}SEK</td>
     </tr>`
   }
@@ -303,9 +271,9 @@ function updateCollapseCart() {
   //add update function to adjust quantities in cart
   document.getElementById("updateCartButton").addEventListener('click', event => {
     let quantity;
-    for (let bookId in shoppingCart) {
-      quantity = document.getElementById("q" + bookId).value
-      updateCart(bookId, quantity * 1);
+    for (let row in shoppingCart) {
+      quantity = document.getElementById("q" + row).value
+      updateCart(row, quantity * 1);
     }
 
     updateCollapseCart();
@@ -346,19 +314,19 @@ function showBook(row) {
 //shows books on main page
 function showBooks() {
   let html = "";
-  let itemList = [];
-  let author, category, bookId, price;
-  let priceRange = priceOptions[priceChoice];
+  let rowList = [];
+  let row = 0;
+
+
 
   for (let book of books) {
-    author = book["author"];
-    category = book["category"];
-    bookId = book["id"];
-    price = book["price"];
+    let author = book["author"];
+    let category = book["category"];
+    let bookId = book["id"];
 
-    if ((authors[author]["checked"]) && (categories[category]["checked"]) && (price >= priceRange[0]) && (price < priceRange[1])) {
+    if ((authors[author]["checked"]) && (categories[category]["checked"])) {
       html += `
-        <div class="productFrame" id="info${bookId}">
+        <div class="productFrame" id="info${row}">
           <div class="card">
             <img src="/book_img.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -367,31 +335,31 @@ function showBooks() {
             </div>
             <div class="card-footer">
               ${book.price}SEK
-              <button type="button" class="btn btn-secondary text-white" id="book${bookId}"> Add to
+              <button type="button" class="btn btn-secondary text-white" id="book${row}"> Add to
                 Cart</button>
             </div>
           </div>
         </div>
           `
-      itemList.push(bookId);
+      rowList.push(row);
     }
+    row += 1
   }
   html += '</div>'
   document.getElementById("bookview").innerHTML = html;
 
   //add events
-  for (let itemNr of itemList) {
+  for (let row of rowList) {
     //add button event
-    document.getElementById("book" + itemNr).addEventListener('click', event => {
-      updateCart(itemNr, "add");
+    document.getElementById("book" + row).addEventListener('click', event => {
+      updateCart(row, "add");
       updateCollapseCart();
     });
 
     //productframe event
-    document.getElementById("info" + itemNr).addEventListener('click', event => {
+    document.getElementById("info" + row).addEventListener('click', event => {
       if (event.target.nodeName != "BUTTON") {
-        console.log("info", itemNr);
-        console.log(getBookInfo(itemNr));
+        console.log("info", row);
       }
 
     });
@@ -403,23 +371,6 @@ function showBooks() {
 
 //GENERAL FUNCTIONS
 //________________________________________________________________________________________________________________________________
-
-
-//Get book info
-function getBookInfo(bookId) {
-  bookId *= 1;
-  let info;
-
-  for (let book of books) {
-    if (book["id"] === bookId) {
-      info = book;
-      break;
-    }
-  }
-
-  return info;
-}
-
 
 //Checks string length and maximizes it to specified number of characters
 function maxStringSize(word, maxSize) {
@@ -460,10 +411,9 @@ async function start() {
   showSortNavbar();
   showCategoryNavbar();
   showAuthorNavbar();
-  showPriceNavbar();
-  sortList(books);
   showBooks();
   updateCollapseCart();
+  console.log(books)
 }
 
 start();
