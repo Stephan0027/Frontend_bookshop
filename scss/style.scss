@@ -12,54 +12,112 @@
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   /* your header font */
   font-family: 'Arial';
-  font-size: 20px;
+  font-size: 25x;
 
 }
 
-
-// A 'fake' logo
-.logo {
-  display: inline-block;
-  margin-top: -5px;
+p,
+{
+font-size: 20px;
+color: grey;
 }
 
-
-.card-img-top {
-  max-width: 100%;
-  height: 50%;
-  //height: auto;
+table {
+  text-align: left;
+  font-size: 15px;
+  color: grey;
 }
 
-.card-body {
-  height: auto;
-  width: auto;
-  text-align: center;
-
-}
-
-
-.product-frame {
-  //border-style: solid;
-  //border-width: 1px;
-  //border-color: black;
-  background-color: $tertiary;
-  margin: 5px 5px 5px 5px;
-  height: 100%;
-  aspect-ratio: 0.75;
-
-  width: 100%;
-  display: flex;
+.productFrame {
+  padding: 10px;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
-
 
   @include make-col-ready();
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
+    @include make-col(6);
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }
+
+  @include media-breakpoint-up(xl) {
+    @include make-col(3);
+  }
+
+}
+
+.shoppingCartCard {
+  border-style: solid;
+  border-width: 1px;
+  border-color: $secondary;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+.card-img-top {
+  padding: 5px;
+  height: 60%;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  border-style: solid;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card-footer {
+  text-align: right;
+  font-size: 15px;
+  color: grey;
+}
+
+.card-footer button {
+  font-size: 15px;
+}
+
+.card:hover {
+  border-color: $primary;
+}
+
+.productFrame2:hover {
+  border-style: solid;
+  border-width: 2px;
+  border-color: $primary;
+
+}
+
+.productFrame2 {
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 0.75;
+  padding: 5px;
+
+  //display: flex;
+  justify-content: space-between;
+  align-items: center;
+  //flex-direction: column;
+
+  @include make-col-ready();
+
+  @include media-breakpoint-up(md) {
     @include make-col(6);
   }
 

@@ -9,23 +9,84 @@
 </head>
 
 <body>
-  <main>
-    <div class="container-fluid text-center bg-secondary">
+  <header>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/hkr_logo.jpeg" alt="Logo" height="30" class="d-inline-block align-text-top">
+          HKR Bookshop
+        </a>
+        <button class="btn btn-info text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCard"
+          aria-expanded="false" aria-controls="collapseCard">
+          Shopping Cart<span class="badge text-bg-danger" style="margin:5px" id="numberInCart">0</span>
+        </button>
+      </div>
+    </nav>
 
-      <div class="row">
-        <div class="col-sm-3">
-          <h1>nav</h1>
-        </div>
-        <div class="col-sm-9" id="bookview">
+    <div class=" row">
+      <div class="col-md-5 col-lg-3 ms-auto">
+        <div class="collapse" id="collapseCard">
+          <div class="shoppingCartCard" id="collapseShoppingCart" style="margin:10px;text-align:left;">
+          </div>
         </div>
       </div>
     </div>
+
+    <nav class="navbar navbar-expand-lg align-items-center justify-content">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                id="dropdownCategory">
+                Category
+              </a>
+              <ul class="dropdown-menu" id="navCategory">
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                id="dropdownAuthor">
+                Author
+              </a>
+              <ul class="dropdown-menu" id="navAuthor">
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                id="sortChoice">Sort (Price-ascending)
+              </a>
+              <ul class="dropdown-menu" id="navSort">
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </nav>
+
+  </header>
+  <main>
+    <div class="container">
+      <div class="row row-eq-height" id="bookview">
+      </div>
+    </div>
+
   </main>
 
   <footer>
     <div class="row">
-      <div class="col mx-auto text-center">
-        © ironboy, Node Hill AB, 2023
+      <div class="col mx-auto text-center bg-info">
+        © HKR university, Kristianstad, 2023
       </div>
     </div>
   </footer>
