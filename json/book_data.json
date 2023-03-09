@@ -12,7 +12,7 @@
     "title": "Professional JavaScript for Web Developers 4th Edition",
     "author": "Clara Richardsson",
     "description": "vestibulum quam sapien varius ut blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo",
-    "category": "JavaSript",
+    "category": "JavaScript",
     "price": 226
   },
   {
@@ -60,7 +60,7 @@
     "title": "HTML Programming For Beginners: Answers all your Questions Step-by-Step",
     "author": "Balduin Dando",
     "description": "nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit",
-    "category": "JavaScript",
+    "category": "HTML",
     "price": 486
   },
   {
@@ -68,7 +68,7 @@
     "title": "Fundamentos de HTML y CSS: Aprende a crear páginas web",
     "author": "Cariotta Giddings",
     "description": "dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis",
-    "category": "HTML",
+    "category": "CSS",
     "price": 497
   },
   {
